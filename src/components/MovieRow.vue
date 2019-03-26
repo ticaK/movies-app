@@ -8,7 +8,6 @@
             duration:{{movie.duration}}
             releaseDate:{{movie.releaseDate}}
             genre:{{movie.genre}}
-
         </div>
         <button @click="select(movie.id)">Select</button>
     </div>
@@ -24,7 +23,7 @@ export default {
             
         }
     },
-    props:["movie"],
+    props:["movie", "selected"],
     methods:{
         select(id){
             if(this.idArray.indexOf(id)===-1){
@@ -35,6 +34,21 @@ export default {
             } else {
                 return;
             }
+        }
+    },
+    watch:{
+        selected: {
+            handler(newValue, oldValue) {
+              if(newValue){
+               this.backgroundColor="#000000"
+                this.color="#FFFFFF"
+                }}
+            // if(selected){
+
+            //     this.backgroundColor="#000000"
+            //     this.color="#FFFFFF"
+            // }
+
         }
     }
 
