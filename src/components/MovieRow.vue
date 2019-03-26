@@ -39,16 +39,14 @@ export default {
     watch:{
         selected: {
             handler(newValue, oldValue) {
-              if(newValue){
-               this.backgroundColor="#000000"
+              if(newValue) {
+                this.backgroundColor="#000000"
                 this.color="#FFFFFF"
-                }}
-            // if(selected){
-
-            //     this.backgroundColor="#000000"
-            //     this.color="#FFFFFF"
-            // }
-
+              } else {
+                    this.backgroundColor="#FFFFFF"
+                    .color="#000000"
+                }
+           }
         }
     }
 

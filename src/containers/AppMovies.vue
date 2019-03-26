@@ -18,7 +18,7 @@ export default {
         return {
             movies:[],
              clickNumber:0,
-             selected:false
+             selected:null
         }
     },
     components:{
