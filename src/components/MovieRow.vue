@@ -44,7 +44,7 @@ export default {
                 this.color="#FFFFFF"
               } else {
                     this.backgroundColor="#FFFFFF"
-                    .color="#000000"
+                    this.color="#000000"
                 }
            }
         }

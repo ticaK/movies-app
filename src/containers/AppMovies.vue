@@ -5,6 +5,13 @@
         </ul>
         <button @click="selectAll">Select all</button>
         <button @click="deselectAll">Deselect all</button>
+        <button @click="sortByNameAsc">Sort by Name asc</button>
+        <button @click="sortByNameDesc">Sort by Name desc</button>
+        <button @click="sortByDurationAsc">Sort by Duration asc</button>
+        <button @click="sortByDurationDesc">Sort by Duration asc</button>
+
+
+        
         
         <p v-if="clickNumber>0">{{clickNumber}} movies are selected </p>
     </div>
@@ -33,7 +40,52 @@ export default {
         },
         deselectAll(){
             this.selected=false
+        },
+        sortByNameAsc(){
+            this.movies.sort(function(movie1, movie2) {
+                if(movie1.title < movie2.title) { 
+                    return -1;
+                }
+                if(movie1.title > movie2.title) {
+                     return 1;
+                }
+                return 0;
+            })
+        },
+        sortByNameDesc(){
+            this.movies.sort(function(movie1, movie2) {
+                if(movie1.title > movie2.title) { 
+                    return -1;
+                }
+                if(movie1.title < movie2.title) {
+                     return 1;
+                 }
+                return 0;
+            })
+        },
+        sortByDurationAsc(){
+            this.movies.sort(function(movie1, movie2) {
+                if(movie1.duration < movie2.duration) {
+                     return -1;
+                }
+                if(movie1.duration > movie2.duration) {
+                     return 1;
+                }
+                return 0;
+            })
+        },
+        sortByDurationDesc(){
+            this.movies.sort(function(movie1, movie2) {
+                if(movie1.duration > movie2.duration) {
+                     return -1;
+                }
+                if(movie1.duration < movie2.duration) { 
+                    return 1;
+                }
+                return 0;
+            })
         }
+        
     },
 
     beforeRouteEnter (to, from, next) {
