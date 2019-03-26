@@ -1,8 +1,9 @@
 <template>
     <div>
         <ul class="list-group" v-for="movie in movies" :key="movie.id">
-            <li class="list-group-item"><MovieRow :movie="movie" /></li>
+            <li class="list-group-item"><MovieRow :movie="movie" @clicked="clicked" /></li>
         </ul>
+        <p v-if="clickNumber>0">{{clickNumber}} movies are selected </p>
     </div>
 </template>
 
@@ -12,12 +13,19 @@ import MovieRow from '../components/MovieRow'
 export default {
     data(){
         return {
-            movies:[]      
+            movies:[],
+             clickNumber:0
         }
     },
     components:{
         MovieRow
     },
+    methods:{
+        clicked(){
+           this.clickNumber++;
+        }
+    },
+
     beforeRouteEnter (to, from, next) {
     moviesService.getAll()
       .then((response) => {
@@ -25,7 +33,8 @@ export default {
           vm.movies = response.data
         })
       })
-  }
+  },
+
 }
 </script>
 
