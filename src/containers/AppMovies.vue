@@ -1,11 +1,10 @@
 <template>
     <div>
-
         <MovieSearch @searchTermUpdated="search" />
         <p  v-if="!movies.length" class="alert alert-danger">
             There are no movies...
         </p>
-        <ul class="list-group" v-for="movie in movies" :key="movie.id">
+        <ul class="list-group" v-for="movie in paginatedData" :key="movie.id" name="pag">
             <li class="list-group-item"><MovieRow :movie="movie" :selected="selected" @clicked="clicked" /></li>
         </ul>
         <button @click="selectAll">Select all</button>
@@ -16,6 +15,9 @@
         <button @click="sortByDurationDesc">Sort by Duration asc</button>
 
         <p v-if="clickNumber>0">{{clickNumber}} movies are selected </p>
+
+        <button :disabled="pageNumber === 0"  @click="prevPage"> Previous </button>
+        <button :disabled="pageNumber >= pageCount" @click="nextPage"> Next </button> 
     </div>
 </template>
 
@@ -28,17 +30,18 @@ export default {
     data(){
         return {
             movies:[],
-             clickNumber:0,
-             selected:null
+            clickNumber:0,
+            selected:null,
+            pageNumber: 0,
+            size:5 
         }
     },
     components:{
         MovieRow,
-        MovieSearch
+        MovieSearch,
     },
     methods:{
         search(searchTerm){
-
             this.movies=this.movies.filter((movie)=>{
                 return movie.title.toLowerCase().includes(searchTerm.toLowerCase());
             })
@@ -95,10 +98,25 @@ export default {
                 }
                 return 0;
             })
+        },
+        nextPage(){
+         this.pageNumber++;
+        },
+        prevPage(){
+        this.pageNumber--;
         }
-        
     },
-
+    computed:{
+        pageCount(){ 
+            return Math.floor(this.movies.length/this.size);
+        },
+        paginatedData(){
+            const start = this.pageNumber * this.size
+            const end = start + this.size;
+            return this.movies.slice(start, end);
+        }
+  },
+    
     beforeRouteEnter (to, from, next) {
     moviesService.getAll()
       .then((response) => {
@@ -106,11 +124,7 @@ export default {
           vm.movies = response.data
         })
       })
-  },
-
+    }
 }
 </script>
 
-<style>
-
-</style>
