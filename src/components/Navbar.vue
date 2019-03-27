@@ -9,6 +9,7 @@
           <li class="nav-item">
             <router-link to="/movies">Movies</router-link>
           </li>
+          
         </ul>
       </div>
     </nav>

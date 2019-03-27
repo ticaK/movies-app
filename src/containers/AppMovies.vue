@@ -1,5 +1,6 @@
 <template>
     <div>
+        <MovieSearch @search="search" />
         <ul class="list-group" v-for="movie in movies" :key="movie.id">
             <li class="list-group-item"><MovieRow :movie="movie" :selected="selected" @clicked="clicked" /></li>
         </ul>
@@ -10,9 +11,6 @@
         <button @click="sortByDurationAsc">Sort by Duration asc</button>
         <button @click="sortByDurationDesc">Sort by Duration asc</button>
 
-
-        
-        
         <p v-if="clickNumber>0">{{clickNumber}} movies are selected </p>
     </div>
 </template>
@@ -20,6 +18,8 @@
 <script>
 import {moviesService} from '../services/MoviesService'
 import MovieRow from '../components/MovieRow'
+import MovieSearch from '../components/MovieSearch'
+
 export default {
     data(){
         return {
@@ -29,9 +29,15 @@ export default {
         }
     },
     components:{
-        MovieRow
+        MovieRow,
+        MovieSearch
     },
     methods:{
+        search(searchTerm){
+            this.movies=this.movies.filter((movie)=>{
+                return movie.title.toLowerCase().includes(searchTerm.toLowerCase());
+            })
+        },
         clicked(){
            this.clickNumber++;
         },
