@@ -18,7 +18,7 @@ export default {
     },
     methods: {
        search(){
-           this.$emit("search",this.searchTerm)
+           this.$emit("searchTermUpdated",this.searchTerm)
        }
     }
 }

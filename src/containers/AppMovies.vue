@@ -1,6 +1,10 @@
 <template>
     <div>
-        <MovieSearch @search="search" />
+
+        <MovieSearch @searchTermUpdated="search" />
+        <p  v-if="!movies.length" class="alert alert-danger">
+            There are no movies...
+        </p>
         <ul class="list-group" v-for="movie in movies" :key="movie.id">
             <li class="list-group-item"><MovieRow :movie="movie" :selected="selected" @clicked="clicked" /></li>
         </ul>
@@ -34,6 +38,7 @@ export default {
     },
     methods:{
         search(searchTerm){
+
             this.movies=this.movies.filter((movie)=>{
                 return movie.title.toLowerCase().includes(searchTerm.toLowerCase());
             })
