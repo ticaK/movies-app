@@ -1,25 +1,15 @@
 <template>
-    <div>
-            <input class="form-control mr-sm-2"
-                type="search" aria-label="Search"
-                v-model="searchTerm"
-             />  
-            <button @click="search">Search</button>
-         
-    </div>
+  <div>
+    <b-input class="mb-2 mr-sm-2 mb-sm-0" placeholder="Search Movies" @input="searchTermUpdated"/>
+  </div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            searchTerm: ""
-        }
-    },
-    methods: {
-       search(){
-           this.$emit("searchTermUpdated",this.searchTerm)
-       }
+  methods: {
+    searchTermUpdated(term) {
+      this.$emit("search-term-updated", term);
     }
-}
+  }
+};
 </script>
